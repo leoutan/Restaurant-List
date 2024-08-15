@@ -25,6 +25,20 @@ app.get('/restaurant/:id', (req, res)=>{
   res.render('show', {restaurant})
 })
 
+app.get('/search', (req, res)=>{
+  const keyword = req.query.keyword?.trim()
+  const filteredRestaurant = keyword?restaurants.filter((RT)=>
+    Object.keys(RT).some((key)=>{
+      if ((key === "category") || (key === "name")) {
+        return RT[key].toLowerCase().includes(keyword.toLowerCase())
+      } else {
+        return false
+      }
+    })
+  ):restaurants
+  res.render('index', {restaurants: filteredRestaurant})
+})
+
 app.listen(port, ()=>{
   console.log(`server on http://localhost:${port}`)
 })
