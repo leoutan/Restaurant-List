@@ -12,6 +12,11 @@ app.get('/restaurants', (req, res)=>{
   res.send('restaurants list')
 })
 
+app.get('/restaurant/:id', (req, res)=>{
+  const id = req.params.id
+  res.send(`restaurant detail: ${id}`)
+})
+
 app.listen(port, ()=>{
   console.log(`server on http://localhost:${port}`)
 })
